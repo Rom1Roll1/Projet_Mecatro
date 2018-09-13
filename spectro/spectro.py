@@ -11,8 +11,8 @@ class Spectro(object):
         self = sb.Spectrometer.from_serial_number()
         self.integration_time_micros(10000)
         
-        
     def getSpectra(self):
         return [self.wavelengths(),self.intensities()]
+    
     def close(self):
         self.close()
