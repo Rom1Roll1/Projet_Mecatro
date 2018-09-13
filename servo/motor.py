@@ -34,7 +34,21 @@ class Moteurs(object):
             myActuators.append(dyn)
         self.Moteurs=myActuators
         return self
+    
+    def conversion_angle_interval ( theta ):
+    """ Take an angle and convert it into a cervomotor interval """
+        minimum_angle = 300 / 1024 #equivalent in ° of a motor interval
+        targeted_interval = theta / minimum_angle #equivalent of the targeted angle in motor interval
+        return targeted_interval
         
+        
+        
+    def move_motor (self, ID, theta_f, V = 255):
+    """ Take a motor ID, an ordered angle and the motor speed and make it move """
+        self.Moteurs.goal_position[ID] = 
+    
     
     def close(self):
         self.serial.close()
+    
+    
