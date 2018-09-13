@@ -35,14 +35,12 @@ class Moteurs(object):
     
     def conversion_angle_interval(self, theta ):
         """ Take an angle and convert it into a cervomotor interval """
-        minimum_angle = 300 / 1024. #equivalent in ° of a motor interval
-        targeted_interval = round(theta / minimum_angle) #interger equivalent of the targeted angle in motor interval
+        targeted_interval = round(theta / (300./1023)) #interger equivalent of the targeted angle in motor interval
         return targeted_interval
     
     def conversion_interval_angle(self, interval ):
         """ Take an angle and convert it into a cervomotor interval """
-        minimum_angle = 300 / 1024. #equivalent in ° of a motor interval
-        angle = interval * minimum_angle #interger equivalent of the targeted angle in motor interval
+        angle = interval * 300 / 1023. #integer equivalent of the targeted angle in motor interval
         return angle
         
         
@@ -52,7 +50,12 @@ class Moteurs(object):
         self.Moteurs[ID].goal_position = int(self.conversion_angle_interval( theta_f ))
         self.net.synchronize()
         self.Moteurs[ID].read_all() #read all the properties of the cervomotor
-        time.sleep(0.5) #Need time to move
+        time.sleep(0.2)
+        self.Moteurs[ID].read_all() #read all the properties of the cervomotor
+        while self.Moteurs[ID].current_speed!=0:
+            time.sleep(0.1)#Need time to move
+            print(self.Moteurs[ID].current_speed)
+        self.Moteurs[ID].read_all() #read all the properties of the cervomotor
         residual_error = self.Moteurs[ID].current_position - self.conversion_angle_interval (theta_f)
         return self.conversion_interval_angle (residual_error)
     
