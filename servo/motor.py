@@ -45,6 +45,9 @@ class Moteurs(object):
     def move_motor(self, ID, theta_f, V = 255):
         """ Take a motor ID, an ordered angle and the motor speed and make it move """
         self.Moteurs.goal_position[ID] = conversion_angle_interval( theta_f )
+        net.synchronize()
+        self.Moteurs.read_all() #read all the properties of the cervomotor
+        time.sleep(2) #Need time to move
         residual_error = self.Moteurs.current_position - conversion_angle_interval (theta_f)
     
     def close(self):
