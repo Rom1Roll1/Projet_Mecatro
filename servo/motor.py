@@ -1,24 +1,23 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Thu Sep 13 11:14:09 2018
 
 @author: baptistejouk
 """
-import os, dynamixel, time, random
+import os, time,dynamixel, random
 import sys
 from serial import Serial
 
 class Moteurs(object):
-    def _init_(self):
+    
+    def __init__(self):
         # The number of Dynamixels on our bus.
-        nServos = 3
+        nServos = 10
         # Set your serial port accordingly.
         if os.name == "posix":
-            portName = "/dev/ttyUSB0"
+            portName = "/dev/tty.usbserial-A94N75T1"
         else:
             portName = "COM5"
-    
         # Default baud rate of the USB2Dynamixel device.
         baudRate = 1000000
         
@@ -27,13 +26,12 @@ class Moteurs(object):
         
         sys.stdout.flush()
         
-        self.net.scan( 1, nServos )
+        self.net.scan( 0, nServos )
         myActuators = list()
-
+        
         for dyn in self.net.get_dynamixels():
             myActuators.append(dyn)
         self.Moteurs=myActuators
-        return self
     
     def conversion_angle_interval( theta ):
         """ Take an angle and convert it into a cervomotor interval """
