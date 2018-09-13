@@ -32,7 +32,6 @@ class Moteurs(object):
         for dyn in self.net.get_dynamixels():
             myActuators.append(dyn)
         self.Moteurs=myActuators
-        return self
     
     def conversion_angle_interval( theta ):
         """ Take an angle and convert it into a cervomotor interval """
