@@ -65,6 +65,9 @@ class Moteurs(object):
         residual_error = self.listeMoteurs[ID].current_position - self.conversion_angle_interval (theta_f ,ID)
         return self.conversion_interval_angle (residual_error)
     
+    def get_angle(self, ID):
+        return self.conversion_interval_angle(self.listeMoteurs[ID],ID)
+    
     def close(self):
         self.serial.close()
     
